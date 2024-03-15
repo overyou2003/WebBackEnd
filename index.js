@@ -172,6 +172,16 @@ function User(user) {
     });
 
     app.delete('/user_Delete/:id', (req, res) => {
+        post.destroy({
+            where:{
+                user_id : req.params.id
+            }
+        })
+        comment.destroy({
+            where: {
+                user_id : req.params.id
+            }
+        })
         user.findByPk(req.params.id).then(book => {
             if (!book) {
                 res.status(400).send('Book not found');
