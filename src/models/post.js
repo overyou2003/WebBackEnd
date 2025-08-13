@@ -20,7 +20,7 @@ const Post = sequelize.define(
   }
 );
 
-Post.belongsTo(User, { foreignKey: "UserID", onDelete: "CASCADE" });
-User.hasMany(Post, { foreignKey: "UserID" }); 
+Post.belongsTo(User, { foreignKey: "userId", onDelete: "CASCADE" });
+User.hasMany(Post, { foreignKey: "userId" }); 
 
 module.exports = Post;

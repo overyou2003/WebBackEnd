@@ -15,16 +15,16 @@ const Like = sequelize.define("Like",{
     indexes: [
       {
         unique: true,
-        fields: ["userID", "postID"], // ป้องกันกดไลค์ซ้ำ
+        fields: ["userId", "postId"], // ป้องกันกดไลค์ซ้ำ
       },
     ],
   }
 );
 
-Like.belongsTo(User, { foreignKey: "userID", onDelete: "CASCADE" });
-User.hasMany(Like, { foreignKey: "userID" });
+Like.belongsTo(User, { foreignKey: "userId", onDelete: "CASCADE" });
+User.hasMany(Like, { foreignKey: "userId" });
 
-Like.belongsTo(Post, { foreignKey: "postID", onDelete: "CASCADE" });
-Post.hasMany(Like, { foreignKey: "postID" });
+Like.belongsTo(Post, { foreignKey: "postId", onDelete: "CASCADE" });
+Post.hasMany(Like, { foreignKey: "postId" });
 
 module.exports = Like;
