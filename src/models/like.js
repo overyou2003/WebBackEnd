@@ -3,9 +3,7 @@ const sequelize = require("./index");
 const User = require("./user");
 const Post = require("./post");
 
-const Like = sequelize.define(
-  "Like",
-  {
+const Like = sequelize.define("Like",{
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -17,16 +15,16 @@ const Like = sequelize.define(
     indexes: [
       {
         unique: true,
-        fields: ["userId", "postId"], // ป้องกันกดไลค์ซ้ำ
+        fields: ["userID", "postID"], // ป้องกันกดไลค์ซ้ำ
       },
     ],
   }
 );
 
-Like.belongsTo(User, { foreignKey: "userId", onDelete: "CASCADE" });
-User.hasMany(Like, { foreignKey: "userId" });
+Like.belongsTo(User, { foreignKey: "userID", onDelete: "CASCADE" });
+User.hasMany(Like, { foreignKey: "userID" });
 
-Like.belongsTo(Post, { foreignKey: "postId", onDelete: "CASCADE" });
-Post.hasMany(Like, { foreignKey: "postId" });
+Like.belongsTo(Post, { foreignKey: "postID", onDelete: "CASCADE" });
+Post.hasMany(Like, { foreignKey: "postID" });
 
 module.exports = Like;
