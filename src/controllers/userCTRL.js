@@ -1,3 +1,4 @@
+const { generateToken } = require("../pkg/jwt");
 const userService = require("../services/userService");
 
 module.exports = {
@@ -15,7 +16,18 @@ module.exports = {
     try {
       const { email, password } = req.body;
       const user = await userService.login(email, password);
-      res.json({ message: "Login successful", user });
+
+      res.cookie("token", user.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 60 * 60 * 1000,
+      });
+
+      res.json({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      });
     } catch (err) {
       res.status(400).json({ error: err.message });
     }
@@ -23,7 +35,7 @@ module.exports = {
 
   update: async (req, res) => {
     try {
-      const userID = req.user.id
+      const userID = req.user.id;
       const user = await userService.update(userID, req.body);
       res.json({ message: "User updated successfully", user });
     } catch (err) {
