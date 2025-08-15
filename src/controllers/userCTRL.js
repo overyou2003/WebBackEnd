@@ -16,11 +16,12 @@ module.exports = {
     try {
       const { email, password } = req.body;
       const user = await userService.login(email, password);
+      
 
       res.cookie("token", user.token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        maxAge: 60 * 60 * 1000,
+        secure: false,
+        sameSite: "lax",
       });
 
       res.json({
